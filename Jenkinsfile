@@ -33,8 +33,8 @@ timestamps {
                     echo "Executing tests..."
                     sh '''
                         export FLEDGE_ROOT=$HOME/fledge
-                        cd tests && cmake . && make -j$(nproc)
-                        valgrind -v --leak-check=full ./RunTests --gtest_output=xml:test_output.xml > valgrind_report.log 2>&1
+                        cd tests && cmake . && make -j$(nproc) && \
+                        valgrind -v --leak-check=full ./RunTests --gtest_output=xml:test_output.xml 2>&1 | tee valgrind_report.log
                     '''
                     def leakDetected = sh(
                         script: "grep -q '^==[0-9]*==    definitely lost: [1-9][0-9,]* bytes' tests/valgrind_report.log && echo Y || echo N",
