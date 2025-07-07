@@ -1,5 +1,5 @@
 timestamps {
-    node("ubuntu18-agent") {
+    node("ubuntu-agent") {
         def IS_MEMORY_LEAKAGE = 'FALSE'
         catchError {
             checkout scm
@@ -26,9 +26,9 @@ timestamps {
                 currentBuild.result = 'FAILURE'
                 echo "Failed to build Fledge; required to run the tests!"
                 return
-            }   
+            }
 
-            try { 
+            try {
                 stage("Run Tests") {
                     echo "Executing tests..."
                     sh '''
